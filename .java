@@ -80,14 +80,14 @@ public class JavaFXApplication6 extends Application {
         for(Food i : f) {
             if(i.getBoundsInParent().getMaxY() >= 455){
                 f.remove(i);
-                root.getChildren().remove(i);
+                root.getChildren().remove(i);}
             }
         for(Bomb bomb : b){
             if(bomb.getBoundsInParent().getMaxY() >= 455){
                 b.remove(bomb);
                 root.getChildren().remove(bomb);}
             }
-    }}
+    }
     
     
     public String Score() {
