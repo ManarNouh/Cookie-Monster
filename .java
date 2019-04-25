@@ -53,7 +53,11 @@ class Food extends Rectangle {
         p.setCycleCount(1);
         p.play();
     } 
-    
+     public void setPath(PathTransition p1){
+        p1.setNode(this);
+        p1.setCycleCount(1);
+        p1.play();
+    }
 
     
 }
