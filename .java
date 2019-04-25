@@ -100,13 +100,31 @@ public class JavaFXApplication6 extends Application {
             f.remove(i);
             root.getChildren().remove(i);
             r.getBigger();
+            AnimationTimer collect=collectFood();
+            collect.start();
             Timeline t = new Timeline(
             new KeyFrame(Duration.seconds(10), e->{
-            r.setWidth(r.getWidth() - 10);}));
+            r.setWidth(r.getWidth() - 10);
+            collect.stop();
+            }));
             t.play();
             }
         }
     }
+    
+       private AnimationTimer collectFood(){
+        AnimationTimer t=new AnimationTimer(){
+        
+            @Override
+            public void handle(long now) {
+              for(Food i: f){
+            PathTransition collect= new PathTransition(Duration.millis(750), new Line(r.getX()+r.getWidth()/2,i.getBoundsInParent().getMaxY(),r.getX()+r.getWidth()/2,550),i);
+        i.setPath(collect);}
+            }
+       
+        };
+        return t;
+                }
     
     
     private final AnimationTimer timer = new AnimationTimer() {
