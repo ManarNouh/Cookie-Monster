@@ -46,31 +46,47 @@ class Bomb extends Circle {
 
 class Food extends Rectangle {  
     public PathTransition p;
-    public Food(int r) {
-        super(r,0,10,10);
-        p = new PathTransition(Duration.millis(1500),
-                new Line(r,0,r,550),this);
+    public Food(int r) throws Exception {
+        super(r,0,60,60);
+        this.setFill(cookie());
+        p = new PathTransition(Duration.millis(1500), new Line(r,0,r,550),this);
         p.setCycleCount(1);
         p.play();
+        
     } 
-     public void setPath(PathTransition p1){
+    
+    public void setPath(PathTransition p1){
         p1.setNode(this);
         p1.setCycleCount(1);
         p1.play();
     }
-
+     public ImagePattern  cookie() throws Exception{
+        Image image1 = new Image(new FileInputStream("C:\\Users\\Laptop\\Pictures\\ck.jpg"));
+            ImagePattern imagePattern = new ImagePattern(image1);
+            return imagePattern;
+    }
     
 }
 
+
+
 class superFood extends Food {
     
-    public superFood(int r) {
+    public superFood(int r) throws Exception {
         super(r);
+        this.setFill(supercookie());
+        this.setWidth(70);
+        this.setHeight(70);
         p = new PathTransition(Duration.millis(1500),
                 new Line(r,0,r,550),this);
         p.setCycleCount(1);
         p.play();
-        setWidth(70);
+       
+    }
+     public ImagePattern  supercookie() throws Exception{
+        Image image1 = new Image(new FileInputStream("C:\\Users\\Laptop\\Pictures\\cks.jpg"));
+            ImagePattern imagePattern = new ImagePattern(image1);
+            return imagePattern;
     }
     
 }
