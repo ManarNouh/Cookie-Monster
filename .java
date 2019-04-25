@@ -144,7 +144,7 @@ public class JavaFXApplication6 extends Application {
                     Food f1 = new Food((int)(Math.random()*500));
                     f.add(f1);
                     root.getChildren().add(f1);}
-                if(Math.random() < 0.01) {
+                if(Math.random() < 0.005) {
                     superFood s1 = new superFood((int)(Math.random()*500));
                     sp.add(s1);
                     root.getChildren().add(s1);                    
