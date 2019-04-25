@@ -194,11 +194,19 @@ public class JavaFXApplication6 extends Application {
     public void start(Stage primaryStage) {         
         r.setOnKeyPressed(
                 e -> {
+                    double newX = getBoundsInParent().getMaxX();
+                    double newX1 = getBoundsInParent().getMinX();
+
                     switch(e.getCode()) {
-                        case RIGHT: r.setX(r.getX() + k); break;
-                        case LEFT: r.setX(r.getX() - k); break;
-                    }
-        });           
+                        case RIGHT: {
+                        if (newX < 500) {
+                           setX(getX() + 10);} 
+                        else setX(getX() - 1);break;}
+                        case LEFT: {
+                       if (newX1 > 0) {
+                            setX(getX() - 10); }
+                    else setX(getX() + 1); break;}}}    
+        );    
         
         
         timer.start();
