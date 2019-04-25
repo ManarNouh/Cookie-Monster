@@ -18,19 +18,29 @@ import javafx.animation.Timeline;
 import static javafx.application.Application.launch;
 import javafx.scene.text.Text;
 
-class Player extends Rectangle {
-    
+class Player extends Circle {  
     public Player( double Wlim, double Hlim) {
-        double x = Wlim/2;
-        double y = Hlim - Hlim/8;
-        setX(x);
-        setY(y);
-        setWidth(50);
-        setHeight(20);
+        super(Wlim/2,Hlim - Hlim/8,50);
+        
+        setOnKeyPressed(
+                e -> {
+                    double newX = getBoundsInParent().getMaxX();
+                    double newX1 = getBoundsInParent().getMinX();
+
+                    switch(e.getCode()) {
+                        case RIGHT: {
+                        if (newX < 500) {
+                           setCenterX(getCenterX() + 10);} 
+                        else setCenterX(getCenterX() - 1);break;}
+                        case LEFT: {
+                       if (newX1 > 0) {
+                            setCenterX(getCenterX() - 10); }
+                    else setCenterX(getCenterX() + 1); break;}}
+        });              
     }
     
     public void getBigger() {
-        setWidth(getWidth() + 10);
+        setRadius(getRadius() + 10);
     }
 }
 
