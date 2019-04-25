@@ -1,5 +1,7 @@
 package javafxapplication6;
 
+
+import java.io.FileInputStream;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Application;
@@ -15,8 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import static javafx.application.Application.launch;
 import javafx.scene.text.Text;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.text.Font;
 
 class Player extends Circle {  
     public Player( double Wlim, double Hlim) {
