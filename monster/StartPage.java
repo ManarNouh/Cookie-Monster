@@ -1,15 +1,25 @@
 
 package cookie.monster;
 
+import java.io.FileInputStream;
+import java.nio.file.Paths;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,26 +34,16 @@ import javafx.scene.text.Font;
 public final class StartPage {
     private final BorderPane bp = new BorderPane();
     private final Label Lb = new Label("Cookie Monster");
-    private final Button b1 = new Button("Play");
+    private final Button b1 = new Button("Press to Play ");
     private final VBox vb = new VBox();
     Scene s = new Scene(bp,300,300);
 
     
-    public StartPage() throws Exception{
-        Lb.setAlignment(Pos.CENTER_LEFT);
-        Lb.setFont(Font.font("Arial", 24));
-        b1.setPrefSize(100, 50);
-        vb.getChildren().addAll(Lb,b1);
-        vb.setAlignment(Pos.CENTER);
-        bp.setCenter(vb);
-        s.setFill(Color.BLACK);       
+    public StartPage() {
+        
     }
     
     public Scene getScene() {
         return s;
-    }
-    
-    public Paint getFill() {
-        return s.getFill();
     }
 }

@@ -6,6 +6,7 @@
 package cookie.monster;
 
 import java.io.FileInputStream;
+import java.nio.file.Paths;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
@@ -15,14 +16,14 @@ import javafx.scene.paint.ImagePattern;
  */
 public class superFood extends Food {  
         
-    public superFood(int r, double Hlim) throws Exception {
+    public superFood(int r, double Hlim){
         super(r,Hlim);
         this.setFill(supercookie());
         setRadius(45);
     }  
     
-    public ImagePattern  supercookie() throws Exception{
-        Image image1 = new Image(new FileInputStream("cks.jpg"));
+    public ImagePattern  supercookie(){
+        Image image1 = new Image(Paths.get("C:\\Users\\maria\\Desktop\\Pictures\\cks.jpg").toUri().toString());
             ImagePattern imagePattern = new ImagePattern(image1);
             return imagePattern;
     }
