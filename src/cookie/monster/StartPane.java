@@ -37,7 +37,7 @@ public class StartPane {
     private Text T = new Text();
     private static int score = 0;
     BorderPane root = new BorderPane();
-    AnimationTimer timer ;
+    Timeline timer ;
     Stage primaryStage; 
     
     private void playSound(){
@@ -58,13 +58,11 @@ public class StartPane {
         root.getChildren().add(r);
         root.setBottom(T);
         SwitchScenes(root);
-        timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                updateGame();
-            }
-        };  
-        timer.start();
+        timer = new Timeline(
+            new KeyFrame(Duration.millis(20),e->{
+                updateGame();}));
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
         r.requestFocus();
     }
 
