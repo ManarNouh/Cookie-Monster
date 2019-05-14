@@ -35,8 +35,10 @@ public class StartPane {
     private List<Bomb> b = new ArrayList<>();
     private List<superFood> sp = new ArrayList<>();
     private final Text T = new Text(" "+ score);
+    Text time= new Text();
     private static int score = 0;
     BorderPane root = new BorderPane();
+    PauseTransition delay = new PauseTransition(Duration.seconds(30));
     AnimationTimer timer ;
     Stage primaryStage; 
     
@@ -168,6 +170,11 @@ public class StartPane {
         fed();
         cleanup();
         checkbomb();
+        time.setText("00:"+(30-(int)delay.getCurrentTime().toSeconds())+" ");
+        time.setFont(new Font(25));
+        time.setFill(Color.RED);
+        time.setLayoutY(530);
+        time.setLayoutX(450);
         T.setText(" " + score);
         checksuper();
     }
