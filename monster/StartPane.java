@@ -62,6 +62,21 @@ public class StartPane {
                 updateGame();
             }};  
         timer.start();
+        delay.setOnFinished( event -> {if(checkWin()){
+                    timer.stop();
+                    root.getChildren().remove(r);
+                    root.setCenter(win);}
+                
+                    else{
+                             Text o = new Text(100,100,"You lose");
+                            o.setFont(new Font(80));
+                            o.setFill(Color.RED);
+                            timer.stop();
+                            root.getChildren().remove(r);
+                            root.setCenter(o);
+                            
+                            }  });
+            delay.play();
         r.requestFocus();
     }
 
