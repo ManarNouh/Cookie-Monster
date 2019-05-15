@@ -28,7 +28,7 @@ import javafx.util.Duration;
  *
  * @author Manar Nouh
  */
-public class StartPane {
+public class StartPane extends Pane {
     private double Wlim, Hlim;
     private Player r;
     private List<Food> f = new ArrayList<>();
@@ -37,10 +37,10 @@ public class StartPane {
     private final Text T = new Text(" "+ score);
     Text time= new Text();
     private static int score = 0;
-    BorderPane root = new BorderPane();
     PauseTransition delay = new PauseTransition(Duration.seconds(30));
     AnimationTimer timer ;
-    Stage primaryStage; 
+    Stage primaryStage;
+    BorderPane root=new BorderPane();
     
     private void playSound(){
     AudioClip audioClip = new AudioClip(Paths.get("C:\\Users\\maria\\Downloads\\Cookie Monster Eating Cookie! Om nom nom!.mp3").toUri().toString());
@@ -48,14 +48,16 @@ public class StartPane {
     }
     
 
-    public StartPane(double Wlim, double Hlim,MouseEvent event) {
+    public StartPane(double Wlim, double Hlim,MouseEvent event, Image imgchoice) {
         this.Wlim = Wlim;
         this.Hlim = Hlim;   
         primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        this.getChildren().add(root);
         r = new Player(Wlim,Hlim);
+        r.setImage(imgchoice);
         root.getChildren().add(r);
         root.setBottom(T);
-        SwitchScenes(root);
+        SwitchScenes(this);
         timer = new AnimationTimer() {
             @Override
             public void handle(long CurrentNanoTime) {
