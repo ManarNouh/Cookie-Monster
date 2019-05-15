@@ -54,7 +54,6 @@ public class CharactersPane extends BorderPane{
    go.setPrefSize(200, 80);
     go.setOnAction(e->{
         StartPane start=new StartPane(500,500,primaryStage,imgchoice);
-        SwitchScenes(start);
     });
     this.setBottom(go);
     this.setAlignment(go,Pos.BOTTOM_CENTER);
@@ -100,14 +99,5 @@ for(int i=0; i<Characters.length;i++){
             else{ Characters[j].setFitHeight(100);
             Characters[j].setFitWidth(100);
         } }
-    }
-    
-    private void SwitchScenes(Pane p) {
-        p.setBackground(Background.EMPTY);
-        primaryStage.setTitle("Cookie Monster");
-        Scene s = new Scene(p,500,500);
-        s.setFill(Color.CORNFLOWERBLUE);
-        primaryStage.setScene(s);
-        primaryStage.show();
     }
 }
