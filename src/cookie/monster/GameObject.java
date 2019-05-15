@@ -7,19 +7,22 @@ package cookie.monster;
 
 import javafx.animation.PathTransition;
 import javafx.scene.Node;
-import javafx.scene.shape.Circle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
-public class GameObject extends Circle {
+public class GameObject extends ImageView {
     private PathTransition p;
     
     public GameObject(int r, double Hlim){
-        setCenterX(r);
-        setCenterY(0);
-        setRadius(30);
+        super(i);
+        this.setX(r);
         p = new PathTransition(Duration.millis(2500),
-                new Line(r,0,r,Hlim),this);
+                new Line(r,10,r,Hlim),this);
+        
+        this.setFitHeight(50);
+        this.setFitWidth(50);
         p.play();
    }
     
