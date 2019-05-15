@@ -36,6 +36,7 @@ public class StartPane {
     Button B = new Button("Retry");
     private Text T = new Text();
     private static int score = 0;
+    private int lives=3;
     BorderPane root = new BorderPane();
     Timeline timer ;
     Stage primaryStage; 
@@ -78,6 +79,8 @@ public class StartPane {
     private void checkbomb(){
         for(Bomb bomb: b){
             if(bomb.isCollided(r) == true) {
+                lives--;
+                if(lives==0){
                 timer.stop();
                 r.setState(false);
                 BorderPane p = new BorderPane();
@@ -85,7 +88,7 @@ public class StartPane {
                 R.setFont(Font.font("Algerian", FontWeight.BOLD, FontPosture.ITALIC, 36));
                 
                 p.setCenter(R);
-                SwitchScenes(p);
+                SwitchScenes(p);}
             }
         }
     }
