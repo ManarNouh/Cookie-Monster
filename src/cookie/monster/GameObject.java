@@ -15,7 +15,7 @@ import javafx.util.Duration;
 public class GameObject extends ImageView {
     private PathTransition p;
     
-    public GameObject(int r, double Hlim){
+    public GameObject(int r, double Hlim, Image i){
         super(i);
         this.setX(r);
         p = new PathTransition(Duration.millis(2500),
