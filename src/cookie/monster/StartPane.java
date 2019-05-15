@@ -26,7 +26,7 @@ import javafx.util.Duration;
  *
  * @author Manar Nouh
  */
-public class StartPane {
+public class StartPane extends Pane {
     private double Wlim, Hlim;
     private Player r;
     private List<Food> f = new ArrayList<>();
@@ -51,14 +51,16 @@ public class StartPane {
     }
     
 
-    public StartPane(double Wlim, double Hlim,Stage primaryStage) {
+    public StartPane(double Wlim, double Hlim,Stage primaryStage, Image imgchoice) {
         this.Wlim = Wlim;
         this.Hlim = Hlim;   
         this.primaryStage = primaryStage;
         r = new Player(Wlim,Hlim);
+         r.setImage(imgchoice);
         root.getChildren().add(r);
         root.setBottom(T);
-        SwitchScenes(root);
+        this.getChildren().add(root);
+        SwitchScenes(this);
         timer = new Timeline(
             new KeyFrame(Duration.millis(20),e->{
                 updateGame();}));
