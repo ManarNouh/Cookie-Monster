@@ -1,25 +1,19 @@
-
 package cookie.monster;
 
-import java.io.FileInputStream;
 import java.nio.file.Paths;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,19 +25,40 @@ import javafx.scene.text.FontWeight;
  *
  * @author Manar Nouh
  */
-public final class StartPage {
-    private final BorderPane bp = new BorderPane();
-    private final Label Lb = new Label("Cookie Monster");
-    private final Button b1 = new Button("Press to Play ");
-    private final VBox vb = new VBox();
-    Scene s = new Scene(bp,300,300);
-
+public final class StartPage extends BorderPane {
     
-    public StartPage() {
-        
+    
+    Label s = new Label("Press to Start");
+    AudioClip audio1 = new AudioClip(Paths.get("Sound\\HELLO.mp3").toUri().toString());
+    Stage st;
+    int Wlim, Hlim;
+    public StartPage(Stage primaryStage, int Wlim, int Hlim) {
+        this.Wlim=Wlim;
+        this.Hlim=Hlim;
+        st=primaryStage;
+       s.setFont(Font.font("Algerian", FontWeight.BOLD, FontPosture.ITALIC, 36));
+       s.setTextFill(Color.BURLYWOOD);
+       Image image = new Image("file:Pictures\\bg.jpeg");
+       ImageView i = new ImageView(image);
+       i.setFitHeight(510);
+       i.setFitWidth(510);
+       this.getChildren().add(i);
+       this.setTop(s);
+       BorderPane.setMargin(s,new Insets(350,0,350,180));
+       audio1.play();
+       s.setOnMouseClicked(e->{
+           CharactersPane cpane=new CharactersPane(st);
+           SwitchScenes(cpane);
+       });
+       
     }
     
-    public Scene getScene() {
-        return s;
+    private void SwitchScenes(BorderPane p) {
+        p.setBackground(Background.EMPTY);
+        st.setTitle("Cookie Monster");
+        Scene k = new Scene(p,Wlim,Hlim);
+        k.setFill(Color.CORNFLOWERBLUE);
+        st.setScene(k);
+        st.show();
     }
 }
