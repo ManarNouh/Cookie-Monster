@@ -48,7 +48,7 @@ public class StartPane extends BorderPane {
     private VBox v = new VBox();
     private HBox h = new HBox();
 
-    public StartPane(double Wlim, double Hlim,Stage primaryStage, Image imgchoice) {
+    public StartPane(double Wlim, double Hlim,Stage primaryStage, Image imgchoice, int choice) {
         this.Wlim = Wlim;
         this.Hlim = Hlim;   
         this.primaryStage = primaryStage;
@@ -124,7 +124,7 @@ public class StartPane extends BorderPane {
             this.getChildren().add(b1);
         }
         if(Math.random() < 0.015){
-            Food f1 = new Food((int)(1 + Math.random()*(Wlim - 30)), Hlim);
+            Food f1 = new Food((int)(1 + Math.random()*(Wlim - 30)), Hlim, choice);
             f.add(f1);
             this.getChildren().add(f1);
         }
