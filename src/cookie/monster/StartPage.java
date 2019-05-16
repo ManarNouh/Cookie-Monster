@@ -1,3 +1,4 @@
+
 package cookie.monster;
 
 import java.nio.file.Paths;
@@ -25,14 +26,14 @@ import javafx.stage.Stage;
  *
  * @author Manar Nouh
  */
-public final class StartPage extends BorderPane {
+public class StartPage extends BorderPane {
     
     
     Label s = new Label("Press to Start");
     AudioClip audio1 = new AudioClip(Paths.get("Sound\\HELLO.mp3").toUri().toString());
     Stage st;
-    int Wlim, Hlim;
-    public StartPage(Stage primaryStage, int Wlim, int Hlim) {
+    double Wlim, Hlim;
+    public StartPage(Stage primaryStage, double Wlim, double Hlim) {
         this.Wlim=Wlim;
         this.Hlim=Hlim;
         st=primaryStage;
@@ -40,25 +41,16 @@ public final class StartPage extends BorderPane {
        s.setTextFill(Color.BURLYWOOD);
        Image image = new Image("file:Pictures\\bg.jpeg");
        ImageView i = new ImageView(image);
-       i.setFitHeight(510);
-       i.setFitWidth(510);
+       i.setFitHeight(660);
+       i.setFitWidth(810);
        this.getChildren().add(i);
        this.setTop(s);
        BorderPane.setMargin(s,new Insets(350,0,350,180));
        audio1.play();
        s.setOnMouseClicked(e->{
-           CharactersPane cpane=new CharactersPane(st);
-           SwitchScenes(cpane);
+           CharactersPane cpane=new CharactersPane(st,Wlim,Hlim);
        });
        
     }
-    
-    private void SwitchScenes(BorderPane p) {
-        p.setBackground(Background.EMPTY);
-        st.setTitle("Cookie Monster");
-        Scene k = new Scene(p,Wlim,Hlim);
-        k.setFill(Color.CORNFLOWERBLUE);
-        st.setScene(k);
-        st.show();
-    }
+   
 }
