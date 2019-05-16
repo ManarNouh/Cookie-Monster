@@ -33,7 +33,6 @@ public class StartPane extends BorderPane {
     private ArrayList<Bomb> b = new ArrayList<>();
     private ArrayList<superFood> sp = new ArrayList<>();
     private ArrayList<GameObject> toRemove = new ArrayList<>();
-    private Text T = new Text();
     private static int score = 0;
     private Timeline timer ;
     Stage primaryStage; 
@@ -49,7 +48,7 @@ public class StartPane extends BorderPane {
     private VBox v = new VBox();
     private HBox h = new HBox();
 
-    public StartPane(double Wlim, double Hlim,Stage primaryStage, Image imgchoice, int choice) {
+    public StartPane(int Wlim, int Hlim,Stage primaryStage, Image imgchoice, int choice) {
         this.Wlim = Wlim;
         this.Hlim = Hlim;   
         this.primaryStage = primaryStage;
@@ -190,7 +189,7 @@ public class StartPane extends BorderPane {
         p.setCenter(R);
         tf = 0;
         r.setScore(0);
-        switchScenes(p);
+        SwitchScenes(p);
     }
 }
 
