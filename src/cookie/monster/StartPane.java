@@ -27,6 +27,7 @@ import javafx.util.Duration;
  */
 public class StartPane extends BorderPane {
     private double Wlim, Hlim;
+    private int choice;
     private Player r;
     private ArrayList<Food> f = new ArrayList<>();
     private ArrayList<Bomb> b = new ArrayList<>();
@@ -52,6 +53,7 @@ public class StartPane extends BorderPane {
         this.Wlim = Wlim;
         this.Hlim = Hlim;   
         this.primaryStage = primaryStage;
+        this.choice=choice;
         r = new Player(Wlim,Hlim);
         this.getChildren().add(r);
         r.setImage(imgchoice);
