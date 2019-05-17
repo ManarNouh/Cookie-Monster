@@ -26,6 +26,7 @@ public class StartPane extends BorderPane{
     private Stage primaryStage;
     private double Wlim, Hlim;
     private Player r;
+    private int choice;
     private ArrayList<Food> f = new ArrayList<>();
     private ArrayList<Bomb> b = new ArrayList<>();
     private ArrayList<superFood> sp = new ArrayList<>();
@@ -46,12 +47,13 @@ public class StartPane extends BorderPane{
     private VBox v = new VBox();
     private HBox h = new HBox();
 
-    public StartPane(double Wlim, double Hlim,Stage primaryStage, Image imgchoice)  {
+    public StartPane(double Wlim, double Hlim,Stage primaryStage, Image imgchoice,int choice)  {
         // set scene and Stage
         this.Wlim = Wlim;
         this.Hlim = Hlim;   
         this.primaryStage = primaryStage;
         switchScenes(this);
+        this.choice=choice;
         // add player and lives
         r = new Player(Wlim,Hlim);
         getChildren().add(r);
@@ -133,7 +135,7 @@ public class StartPane extends BorderPane{
             b.add(b1);
         }
         if(Math.random() < 0.004){
-            Food f1 = new Food((int)(1 + Math.random()*(Wlim - 30)), Hlim);
+            Food f1 = new Food((int)(1 + Math.random()*(Wlim - 30)), Hlim, choice);
             this.getChildren().add(f1);
             f.add(f1);
         }
