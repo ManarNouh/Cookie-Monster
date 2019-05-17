@@ -24,7 +24,7 @@ import javafx.util.Duration;
 
 public class StartPane extends BorderPane{
     private Stage primaryStage;
-    private double Wlim, Hlim;
+    private int Wlim, Hlim;
     private Player r;
     private int choice;
     private ArrayList<Food> f = new ArrayList<>();
@@ -167,7 +167,7 @@ public class StartPane extends BorderPane{
             endGame("Won");
         ret.setOnMouseClicked(e->{
             endGame("Retry");
-            StartPane sp = new StartPane(Wlim,Hlim,primaryStage,imgchoice);
+            StartPane sp = new StartPane(Wlim,Hlim,primaryStage,imgchoice,choice);
         });
         
         back.setOnMouseClicked(e->{
