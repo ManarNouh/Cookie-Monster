@@ -47,7 +47,7 @@ public class StartPane extends BorderPane{
     private VBox v = new VBox();
     private HBox h = new HBox();
 
-    public StartPane(double Wlim, double Hlim,Stage primaryStage, Image imgchoice,int choice)  {
+    public StartPane(int Wlim, int Hlim,Stage primaryStage, Image imgchoice,int choice)  {
         // set scene and Stage
         this.Wlim = Wlim;
         this.Hlim = Hlim;   
