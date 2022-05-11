@@ -1,20 +1,19 @@
 package cookie.monster;
 
-import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
-import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.media.AudioClip;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -22,40 +21,42 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-/**
- *
- * @author Manar Nouh
- */
-public class StartPane extends Pane {
-    private double Wlim, Hlim;
-    private Player r;
-    private List<Food> f = new ArrayList<>();
-    private List<Bomb> b = new ArrayList<>();
-    private List<superFood> sp = new ArrayList<>();
-    private List<GameObject> toRemove = new ArrayList<>();
-    Button B = new Button("Retry");
-    private Text T = new Text();
-    private static int score = 0;
-    private int lives=3;
-    BorderPane root = new BorderPane();
-    Timeline timer ;
-    Stage primaryStage; 
-    
-    private void playSound(){
-        AudioClip audio = new AudioClip(Paths.get("Sound\\eating.mp3").toUri().toString());
-        audio.setPriority(1);
-        if(audio.isPlaying() == true){
-            audio.stop();
-        }
-        audio.play(5);
-    }
-    
 
-    public StartPane(double Wlim, double Hlim,Stage primaryStage, Image imgchoice) {
+public class StartPane extends BorderPane{
+    private Stage primaryStage;
+    private int Wlim, Hlim;
+    private Player r;
+    private int choice;
+    private ArrayList<Food> f = new ArrayList<>();
+    private ArrayList<Bomb> b = new ArrayList<>();
+    private ArrayList<superFood> sp = new ArrayList<>();
+    private ArrayList<GameObject> toRemove = new ArrayList<>();
+    private Timeline timer;
+    Image imgchoice;
+    Image i = new Image("file:Pictures\\Retry.png");
+    Image j = new Image("file:Pictures\\Back.png");
+    Image k = new Image("file:Pictures\\Next.png");
+    
+    ImageView ret = new ImageView(i);
+    ImageView back = new ImageView(j);
+    ImageView next = new ImageView(k);
+    
+    private static double tf = 0;
+    private Text T = new Text(),S = new Text();
+    private int MaxScore = 20;
+    private VBox v = new VBox();
+    private HBox h = new HBox();
+
+    public StartPane(int Wlim, int Hlim,Stage primaryStage, Image imgchoice,int choice)  {
+        // set scene and Stage
         this.Wlim = Wlim;
         this.Hlim = Hlim;   
         this.primaryStage = primaryStage;
+        switchScenes(this);
+        this.choice=choice;
+        // add player and lives
         r = new Player(Wlim,Hlim);
+
          r.setImage(imgchoice);
         root.getChildren().add(r);
         root.setBottom(T);
@@ -63,130 +64,149 @@ public class StartPane extends Pane {
         SwitchScenes(this);
         timer = new Timeline(
             new KeyFrame(Duration.millis(20),e->{
+
                 updateGame();}));
-        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.setCycleCount(6080);
         timer.play();
         r.requestFocus();
-    }
+        // set retry, timer, score & lives 
+        this.setBottom(T);
+        T.setFont(Font.font("Algerian", FontWeight.BOLD, FontPosture.ITALIC, 22));
+        S.setFont(Font.font("Algerian", FontWeight.BOLD, FontPosture.ITALIC, 22));
+        v.getChildren().add(S);
+        this.setRight(v);
+        v.getChildren().add(h);
+        this.setMargin(v,new Insets(5,0,0,0));
+        
+        
+        }
 
-    private void SwitchScenes(BorderPane p) {
+    private void switchScenes(BorderPane p) {
         p.setBackground(Background.EMPTY);
+        
+        HBox v1 = new HBox();
+        p.setLeft(v1);
+        this.setMargin(v1,new Insets(5,0,0,0));
+        v1.getChildren().addAll(ret,back);
+        ret.setFitHeight(35);
+        ret.setFitWidth(35);
+        back.setFitHeight(35);
+        back.setFitWidth(35);
+        this.setMargin(v1,new Insets(5,0,0,0));
+        
         primaryStage.setTitle("Cookie Monster");
         Scene s = new Scene(p,Wlim,Hlim);
         s.setFill(Color.CORNFLOWERBLUE);
         primaryStage.setScene(s);
         primaryStage.show();
-    }
-
-    private void checkbomb(){
-        for(Bomb bomb: b){
-            if(bomb.isCollided(r) == true) {
-                lives--;
-                if(lives==0){
-                timer.stop();
-                r.setState(false);
-                BorderPane p = new BorderPane();
-                Text R = new Text("Game Over" + "\n   Score:" + score );
-                R.setFont(Font.font("Algerian", FontWeight.BOLD, FontPosture.ITALIC, 36));
-                
-                p.setCenter(R);
-                SwitchScenes(p);}
-            }
-        }
-    }
-
-    private void checksuper() {
-        for(superFood i : sp) {
-            if(i.isCollided(r) == true) {
-                toRemove.add(i);
-                root.getChildren().remove(i);
-                AnimationTimer collect=collectFood();
-                collect.start();
-                playSound();
-                Timeline t = new Timeline(
-                new KeyFrame(Duration.seconds(6), e->{
-                    collect.stop();
-                }));
-                t.play();
-            }
-        }
-        sp.removeAll(toRemove);
-    }
+    }     
 
     private void cleanup() {
         for(Food i : f) {
             if(i.checkBoundries(Hlim) == true){
                 toRemove.add(i);
-                root.getChildren().remove(i);
+                this.getChildren().remove(i);
             }}
         f.removeAll(toRemove);
         for(Bomb bomb : b){
             if(bomb.checkBoundries(Hlim) == true){
                 toRemove.add(bomb);
-                root.getChildren().remove(bomb);}
+                this.getChildren().remove(bomb);}
             }
         b.removeAll(toRemove);
         
         for(superFood s : sp){
             if(s.checkBoundries(Hlim) == true){
                 toRemove.add(s);
-                root.getChildren().remove(s);}
+                this.getChildren().remove(s);}
             }
         sp.removeAll(toRemove);    
         
     }
     
-    private void fed() {
-        for(Food i : f){
-        if(i.isCollided(r) == true) { 
-            toRemove.add(i);
-            root.getChildren().remove(i);
-            score++; }
-        }
-        f.removeAll(toRemove);
-    }
-    
-    private AnimationTimer collectFood(){
-        AnimationTimer t=new AnimationTimer(){
-            @Override
-            public void handle(long now) {
-                for(Food i: f){
-                    PathTransition collect= new PathTransition( 
-                            Duration.millis(750), new Line(r.getCenterX(),
-                            i.getBoundriesY(),
-                            r.getCenterX(),550),i);
-                        i.setPath(collect); 
-                }
-            }
-        };
-        return t; 
-    }
-    
     private void generateObjects(){
-        if(Math.random() < 0.001) {
+        if(Math.random() < 0.002) {
             Bomb b1 = new Bomb((int)(1 + Math.random()*(Wlim- 30)), Hlim);
+            this.getChildren().add(b1);
             b.add(b1);
-            root.getChildren().add(b1);
         }
-        if(Math.random() < 0.015){
-            Food f1 = new Food((int)(1 + Math.random()*(Wlim - 30)), Hlim);
+        if(Math.random() < 0.004){
+            Food f1 = new Food((int)(1 + Math.random()*(Wlim - 30)), Hlim, choice);
+            this.getChildren().add(f1);
             f.add(f1);
-            root.getChildren().add(f1);
         }
-        if(Math.random() < 0.0015) {
+        if(Math.random() < 0.00015) {
             superFood s1 = new superFood(1 + (int)(Math.random()*(Wlim - 45)), Hlim);
+            this.getChildren().add(s1);
             sp.add(s1);
-            root.getChildren().add(s1);
         }
     }
     
     private void updateGame(){
         generateObjects();
-        fed();
+        r.checkFood(f,this);
+        r.checksuper(sp, f, this);
         cleanup();
-        checkbomb();
-        T.setText(" " + score);
-        checksuper();
+        r.checkBomb(b, this, h);
+        if(r.isAlive() == false){
+            endGame("Lost");
+        }
+        
+        T.setText(" " + r.getScore() + "/" + MaxScore);                
+        timer.setOnFinished(e->{
+            if(r.getScore() >= MaxScore)
+                endGame("Won");
+            else endGame("Lost");
+        
+        });
+        if(r.getScore() >= MaxScore)
+            endGame("Won");
+        ret.setOnMouseClicked(e->{
+            endGame("Retry");
+            StartPane sp = new StartPane(Wlim,Hlim,primaryStage,imgchoice,choice);
+        });
+        
+        back.setOnMouseClicked(e->{
+            endGame("GO BACK");
+            CharactersPane cpane=new CharactersPane(primaryStage,Wlim,Hlim);
+        });
+        
+        tf++;
+        float time;
+        time = ((float)((timer.getCycleCount())*0.005) - (float)(tf*0.005));
+        DecimalFormat df = new DecimalFormat("#.0");
+        S.setText("Time Left: " + " " + df.format(time));
+    }
+        
+    private void endGame(String L){
+        timer.stop();
+        this.getChildren().clear();
+        Text R = new Text();
+        BorderPane p = new BorderPane();
+        r.setLives(3);
+        
+        if(L.equals("Lost")){
+            R.setText("Game Over" + "\n   Score:" + r.getScore() );
+            p.setCenter(R);
+        }
+        if(L.equals("Won")){
+            VBox v2 = new VBox();
+            Button next = new Button("Next Level");
+            next.setStyle("-fx-background-color: Beige");
+            R.setText("You Won");
+            next.setPrefSize(150,50);
+            v2.getChildren().addAll(R,next);
+            v2.setMargin(next,new Insets(20,0,0,30));
+            p.setCenter(v2);
+            p.setMargin(v2,new Insets(Hlim/2 - Hlim/8 ,0,0,Wlim/2 - Wlim/5));
+            
+            
+        }
+        R.setFont(Font.font("Algerian", FontWeight.BOLD, FontPosture.ITALIC, 56));
+        
+        tf = 0;
+        r.setScore(0);
+        switchScenes(p);
     }
 }
 
