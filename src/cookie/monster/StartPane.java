@@ -56,19 +56,15 @@ public class StartPane extends BorderPane{
         this.choice=choice;
         // add player and lives
         r = new Player(Wlim,Hlim);
-        getChildren().add(r);
-        r.setImage(imgchoice);
-        this.imgchoice = imgchoice;
-        
-        r.setLiv(h);
-        // start game
-//        Timeline t = new Timeline(new KeyFrame(Duration.millis(300),e->{
-//            timer.stop();
-//        }));
-//        t.play();
-        
-        timer = new Timeline( 
-                new KeyFrame(Duration.millis(5),e->{
+
+         r.setImage(imgchoice);
+        root.getChildren().add(r);
+        root.setBottom(T);
+        this.getChildren().add(root);
+        SwitchScenes(this);
+        timer = new Timeline(
+            new KeyFrame(Duration.millis(20),e->{
+
                 updateGame();}));
         timer.setCycleCount(6080);
         timer.play();
