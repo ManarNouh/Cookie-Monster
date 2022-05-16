@@ -10,9 +10,11 @@ public class CookieMonster extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-       StartPage start = new StartPage(primaryStage, 800, 650);
+        
        primaryStage.setResizable(false);
-       Scene scene = new Scene(start,800,650);
+ 
+       StartPage spage=new StartPage(primaryStage,500,500);
+       Scene scene = new Scene(spage,500,500);
        primaryStage.setScene(scene);
        primaryStage.show();
        
