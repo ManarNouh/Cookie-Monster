@@ -6,20 +6,13 @@
 package cookie.monster;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
-
 /**
  *
  * @author Manar Nouh
  */
 public class Bomb extends GameObject {       
     public Bomb(int r, double Hlim) {
-        super(r,Hlim);
-        this.setFill(BOMB());  
+        super(r,Hlim,new Image("file:Pictures\\bomb.png"));
     }  
-    private ImagePattern  BOMB(){
-        Image image1 = new Image("file:Pictures\\bomb.png");
-            ImagePattern imagePattern = new ImagePattern(image1);
-            return imagePattern;
-    }
+    
 }

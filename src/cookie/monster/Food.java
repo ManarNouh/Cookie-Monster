@@ -1,28 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cookie.monster;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
-
-/**
- *
- * @author Manar Nouh
- */
 
 
 class Food extends GameObject {  
-    public Food(int r,double Hlim) {
-        super(r,Hlim);
-        this.setFill(cookie());
+  private final Image elmoFood=new Image("file:Pictures\\apple.png");
+  private final Image birdFood=new Image("file:Pictures\\burger.png");
+  private final Image abbyFood=new Image("file:Pictures\\cupcake.png");
+  private final Image cmFood=new Image("file:Pictures\\ck.png");
+  private final Image[] fimgs=new Image[4];
+  
+    public Food(int r,double Hlim,final int x) {
+        super(r,Hlim,new Image("file:Pictures\\ck.png"));
+        
+        fimgs[0]=cmFood;
+        fimgs[1]=elmoFood;
+        fimgs[2]=birdFood;
+        fimgs[3]=abbyFood;
+        
+        this.setImage(fimgs[x]);
+        this.setFitHeight(70);
+        if (x==2) setFitWidth(85);
+        this.setFitWidth(70);
+
     }  
     
-     private ImagePattern  cookie() {
-        Image image1 = new Image("file:Pictures\\ck.png");
-            ImagePattern imagePattern = new ImagePattern(image1);
-            return imagePattern;
-    }
 }

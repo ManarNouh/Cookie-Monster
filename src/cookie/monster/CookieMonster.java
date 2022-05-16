@@ -13,10 +13,6 @@ public class CookieMonster extends Application {
         
        primaryStage.setResizable(false);
  
-       
-//       Stage charac=new Stage();
-//       CharactersPane noha=new CharactersPane();
-//       Scene s2=new Scene(noha,500,500);
        StartPage spage=new StartPage(primaryStage,500,500);
        Scene scene = new Scene(spage,500,500);
        primaryStage.setScene(scene);

@@ -36,14 +36,16 @@ public class CharactersPane extends BorderPane{
     ImageView Abby=new ImageView(new Image("file:Pictures\\Abby.png"));
     ImageView[] Characters=new ImageView[4];
     int choice;
-    Image imgchoice;
+    Image imgchoice = CM.getimage();;
     Button go;
     Stage primaryStage;
     Text R = new Text("Choose your puppet");
         
-    public CharactersPane(Stage primaryStage){
+    public CharactersPane(Stage primaryStage,int Wlim, int Hlim){
     this.primaryStage=primaryStage;
-    
+    this.Wlim = Wlim;
+    this.Hlim = Hlim;
+    SwitchScenes(this);
     hb=new HBox();
     this.setCenter(hb);
     hb.setAlignment(Pos.CENTER);
@@ -54,7 +56,6 @@ public class CharactersPane extends BorderPane{
    go.setPrefSize(200, 80);
     go.setOnAction(e->{
         StartPane start=new StartPane(500,500,primaryStage,imgchoice);
-        SwitchScenes(start);
     });
     this.setBottom(go);
     this.setAlignment(go,Pos.BOTTOM_CENTER);
@@ -101,13 +102,12 @@ for(int i=0; i<Characters.length;i++){
             Characters[j].setFitWidth(100);
         } }
     }
-    
-    private void SwitchScenes(Pane p) {
+  private void SwitchScenes(BorderPane p) {
         p.setBackground(Background.EMPTY);
         primaryStage.setTitle("Cookie Monster");
-        Scene s = new Scene(p,500,500);
-        s.setFill(Color.CORNFLOWERBLUE);
-        primaryStage.setScene(s);
+        Scene k = new Scene(p,Wlim,Hlim);
+        k.setFill(Color.CORNFLOWERBLUE);
+        primaryStage.setScene(k);
         primaryStage.show();
     }
 }
